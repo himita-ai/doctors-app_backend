@@ -1,21 +1,32 @@
 //importing all the necessary modules that are required.
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 // this is the secret key that will used to bulild a jwt token and same it will be used to verify the jwtsecretkey.
 const jwtSecretKey = "qwertyuiopasdfghjklzxcvbnmqwerty";
 const userModel = require('../models/users')
 const nodemailer = require('nodemailer');
 const randomstring = require('randomstring');
 const otpModel = require('../models/otp')
+// Load your SSL certificates
+const key = fs.readFileSync('C:/Users/91982/Desktop/doctor project/backend/key.pem');
+const cert = fs.readFileSync('C:/Users/91982/Desktop/doctor project/backend/cert.pem');
+
 
 
 // this is used for sending otp to mail.
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'otp788935@gmail.com', // this is the email that will be used to send the email.
-        pass: 'lofu tmez fnwi lhoh', //this is the password that is created in app passwords in gmail setting options.
+        user: 'himitagangwani@gmail.com', // this is the email that will be used to send the email.
+        pass: 'pzvu czvq gdwc jtdq', //this is the password that is created in app passwords in gmail setting options.
     },
+    tls: {
+        key: key,
+        cert: cert,
+        
+        rejectUnauthorized: false // Set to true in production to reject self-signed certificates
+      }
 });
 
 
@@ -142,7 +153,7 @@ resendOtp = async(req,res)=>{
           
         }
         const mailOptions = {
-            from: 'otp788935@gmail.com',
+            from: 'himitagangwani@gmail.com',
             to: email,
             subject: 'OTP for Registration',
             text: `Your OTP for registration is ${otp}`,
@@ -230,7 +241,7 @@ sendOtp = async(req,res)=>{
           
         }
         const mailOptions = {
-            from: 'otp788935@gmail.com',
+            from: 'himitagangwani@gmail.com',
             to: email,
             subject: 'OTP for Registration',
             text: `Your OTP for registration is ${otp}`,
@@ -240,6 +251,7 @@ sendOtp = async(req,res)=>{
     }
     catch(error){
          // this will be send if the runtime error occurs in the code and if it those try to console it to get the exact route.
+         console.log(error)
          res.status(500).send({status:500});
     }
 }
@@ -347,7 +359,7 @@ sendOtppassword = async(req,res)=>{
         userdata.otpExpires=otpExpires
         await userdata.save()
         const mailOptions = {  // defining the otp mail structure.
-            from: 'otp788935@gmail.com',
+            from: 'himitagangwani@gmail.com',
             to: email,
             subject: 'OTP for Registration',
             text: `Your OTP for registration is ${otp}`,
