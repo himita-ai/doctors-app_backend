@@ -9,8 +9,8 @@ const nodemailer = require('nodemailer');
 const randomstring = require('randomstring');
 const otpModel = require('../models/otp')
 // Load your SSL certificates
-const key = fs.readFileSync('C:/Users/91982/Desktop/doctor project/backend/key.pem');
-const cert = fs.readFileSync('C:/Users/91982/Desktop/doctor project/backend/cert.pem');
+/*const key = fs.readFileSync('C:/Users/91982/Desktop/doctor project/backend/key.pem');
+const cert = fs.readFileSync('C:/Users/91982/Desktop/doctor project/backend/cert.pem');*/
 
 
 
@@ -21,12 +21,12 @@ const transporter = nodemailer.createTransport({
         user: 'himitagangwani@gmail.com', // this is the email that will be used to send the email.
         pass: 'pzvu czvq gdwc jtdq', //this is the password that is created in app passwords in gmail setting options.
     },
-    tls: {
+    /*tls: {
         key: key,
         cert: cert,
         
         rejectUnauthorized: false // Set to true in production to reject self-signed certificates
-      }
+      }*/
 });
 
 
